@@ -10,9 +10,12 @@ import RPi.GPIO as GPIO
 from pythonosc import dispatcher
 from pythonosc import osc_server
 
-relayPin = 17
+statusPin = 11
+relayPin = 7
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(relayPin, GPIO.OUT)
+GPIO.setup(statusPin, GPIO.OUT)
 
 def get_ip_address():
  ip_address = '';
@@ -38,4 +41,5 @@ if __name__ == "__main__":
 
   server = osc_server.ThreadingOSCUDPServer((local_ip, 50005), dispatcher)
   print("Serving on {}".format(server.server_address))
+  GPIO.output(statusPin, GPIO.HIGH)
   server.serve_forever()
