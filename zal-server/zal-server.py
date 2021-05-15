@@ -2,6 +2,7 @@
 
 import argparse
 import math
+import netifaces
 
 from pythonosc import dispatcher
 from pythonosc import osc_server
@@ -15,10 +16,11 @@ def zal_handler(unused_addr, args):
 if __name__ == "__main__":
   hostname = socket.gethostname()
   local_ip = socket.gethostbyname(hostname)
-
+  print(hostname, local_ip)
+  
   dispatcher = dispatcher.Dispatcher()
   dispatcher.map("/zal", zal_handler)
 
-  server = osc_server.ThreadingOSCUDPServer(local_ip, 50005, dispatcher)
+  server = osc_server.ThreadingOSCUDPServer((local_ip, 50005), dispatcher)
   print("Serving on {}".format(server.server_address))
   server.serve_forever()
