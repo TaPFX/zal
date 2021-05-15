@@ -21,7 +21,7 @@ def zal_handler(unused_addr, args):
 
 if __name__ == "__main__":
   local_ip = get_ip_address()
-  print(hostname, local_ip)
+  print(local_ip)
   
   dispatcher = dispatcher.Dispatcher()
   dispatcher.map("/zal", zal_handler)
